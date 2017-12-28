@@ -1,0 +1,27 @@
+{
+  "name": "twilio-spammer",
+  "version": "1.0.0",
+  "description": "spam smaps for maps spam",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CameronMoorehead/twilio-spammer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CameronMoorehead/twilio-spammer/issues"
+  },
+  "homepage": "https://github.com/CameronMoorehead/twilio-spammer#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "faker": "^4.1.0",
+    "twilio": "^3.11.0"
+  }
+}
