@@ -4,7 +4,7 @@
   "description": "spam smaps for maps spam",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
     "express": "^4.16.2",
     "faker": "^4.1.0",
     "twilio": "^3.11.0"
+  },
+  "engines": {
+    "node": "9.2.0"
   }
 }
