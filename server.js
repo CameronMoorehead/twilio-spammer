@@ -37,6 +37,6 @@ app.post('/sms', (request, response) => {
 });
 
 // Startup Server
-http.createServer(app).listen(8080, () => {
+http.createServer(app).listen(process.env.PORT, () => {
   console.log('Server is listening on port 8080');
 });
