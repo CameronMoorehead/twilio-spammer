@@ -6,13 +6,30 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const faker = require('faker');
 const client = require('twilio')(accountSid, authToken);
 
-const outboundSpam = (phoneNumber) => {
+const updateSpamState = require('./spam-state');
+
+const outboundSpam = phoneNumber => {
+  let i = 1;
+  const innerLoop = () => {
+    setTimeout(() => {
+      i++;
+      if (i < 50 && updateSpamState('has', phoneNumber)) {
+        createMessage(phoneNumber);
+        innerLoop();
+      }
+    }, 2000)
+  };
+
+  innerLoop();
+};
+
+const createMessage = phoneNumber => {
   client.messages.create({
-    to: `+1${phoneNumber}`,
+    to: phoneNumber,
     from: '+14255288380',
-    body: `Now ${faker.hacker.verb()} your phones ${faker.hacker.noun()} ...`,
+    body: `${faker.hacker.verb()}(ing) your phones ${faker.hacker.noun()} ...`,
   })
   .then(message => console.log(message.sid));
-};
+}
 
 module.exports = outboundSpam;

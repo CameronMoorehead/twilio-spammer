@@ -11,18 +11,26 @@ const outboundSpam = require('./outbound-spam');
 
 const app = express();
 
+const updateSpamState = require('./spam-state');
+
 // bodyParser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Routes
 app.post('/sms', (request, response) => {
   const twiml = new MessagingResponse();
-  const phoneNumber = request.body.Body;
+  const userInput = request.body.Body;
+  const user = request.body.From;
 
-  if (phoneNumber.length === 10) {
+  // userInput is likely a phone #
+  if (userInput.length === 10) {
+    const phoneNumber = `+1${userInput}`;
+    updateSpamState('add', phoneNumber)
     return outboundSpam(phoneNumber);
+  } else if (userInput === 'codefellows') {
+    updateSpamState('delete', user);
   } else {
-    twiml.message('Please provide a 10-digit phone number');
+    twiml.message('Please provide a 10-digit phone number with no spaces or non-numerical characters');
     response.writeHead(200, {'Content-Type': 'text/xml'});
     response.end(twiml.toString());
   }
